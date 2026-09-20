@@ -1,10 +1,73 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0b5cff"><title>My Estimateer</title><link rel="manifest" href="manifest.json"><link rel="stylesheet" href="styles.css"></head><body>
-<header><div class="brand"><b>MY ESTIMATEER</b><small>Smart Construction Estimates, Anywhere in the World.</small></div><button id="tutorial">Tutorial</button></header>
-<main><section class="card"><h1>Construction Estimate <em>V2</em></h1><div class="grid">
-<label>Country<select id="country"></select></label><label>City / Location<input id="city" placeholder="e.g. Faisalabad"></label><label>Building type<select id="type"><option>House</option><option>Commercial</option><option>Industrial</option><option>Government</option><option>Other</option></select></label><label>Quality<select id="quality"><option value="basic">Basic</option><option value="standard" selected>Standard</option><option value="premium">Premium</option></select></label><label>Area<input id="area" type="number" value="1000" min="1"></label><label>Unit<select id="unit"><option value="sqft">sq ft</option><option value="sqm">m²</option><option value="sqyd">sq yd</option></select></label><label>Floors<input id="floors" type="number" value="1" min="1"></label><label>Currency<select id="currency"></select></label></div>
-<label class="check"><input id="gov" type="checkbox"> Government Project / SOR-CSR-SSR mode</label>
-<div class="upload"><h2>📐 Estimate from your drawing / plan</h2><p>Upload a floor-plan image or drawing. The secure AI backend can inspect rooms, dimensions and visible quantities; unreadable dimensions must remain assumptions.</p><input id="file" type="file" accept="image/*,.pdf"><div id="preview"></div><button id="analyze">Analyze Drawing & Estimate</button></div><button class="primary" id="estimate">Generate Estimate</button><p class="note" id="note"></p></section>
-<section class="side"><div class="card"><h2>Rough Cost Range</h2><div class="totals"><div>Low<strong id="low">—</strong></div><div>Average<strong id="avg">—</strong></div><div>High<strong id="high">—</strong></div></div><p id="meta" class="note">Generate an estimate.</p><button id="save">Save History</button> <button id="print">PDF / Print</button></div>
-<div class="card"><div class="tabs"><button data-tab="break">Breakdown</button><button data-tab="rates">Live Rates</button><button data-tab="history">History</button></div><div id="break" class="tab active"></div><div id="rates" class="tab"></div><div id="history" class="tab"></div></div>
-<div class="card"><h2>🤖 AI Estimate Assistant</h2><textarea id="q" placeholder="Ask about quantities, assumptions or this estimate..."></textarea><button id="ask">Ask AI</button><div id="answer" class="answer">AI is ready.</div></div></section></main>
-<footer>© 2026 My Estimateer · Created by <b>SI CREATERS</b> · <a href="privacy-policy.html">Privacy Policy</a> · <a href="terms-and-conditions.html">Terms & Conditions</a> · <a href="refund-policy.html">Cancellation/Refund Policy</a> · <a href="ownership-statement.html">Ownership Statement</a> · Preliminary estimates must be verified by qualified local professionals.</footer><script src="app.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b5cff"><title>My Estimateer — Smart Construction Estimates</title>
+<link rel="manifest" href="manifest.json"><link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app-shell">
+<header class="topbar">
+  <a class="brand" href="#top"><span class="brand-mark">▥</span><span><b>My Estimateer</b><small>Smart Construction Estimates</small></span></a>
+  <nav class="desktop-nav"><a href="#estimate">Estimate</a><a href="#rates-card">Live Rates</a><a href="#history-card">History</a><a href="#assistant">AI Assistant</a></nav>
+  <div class="top-actions"><span id="planBadge" class="plan-badge">FREE</span><button id="proBtn" class="pro-btn">★ Go Pro</button><button id="tutorial" class="icon-btn" aria-label="Tutorial">?</button></div>
+</header>
+
+<section class="hero" id="top">
+  <div class="hero-copy">
+    <span class="eyebrow">AI • GLOBAL RATES • SMART REPORTS</span>
+    <h1>Build your future with <span>accurate estimates.</span></h1>
+    <p>Estimate construction costs by location, project type, area and quality — with a clean professional dashboard built for real-world planning.</p>
+    <div class="hero-actions"><a class="primary hero-btn" href="#estimate">+ New Estimate</a><a class="secondary hero-btn" href="#rates-card">Explore Live Rates</a></div>
+    <div class="hero-trust"><span>✓ Worldwide-ready</span><span>✓ AI-assisted</span><span>✓ PDF reports</span></div>
+  </div>
+  <div class="hero-panel">
+    <div class="mini-panel-head"><span>Project overview</span><b>Live</b></div>
+    <div class="mini-number"><strong id="heroAvg">—</strong><span>Average estimate</span></div>
+    <div class="mini-bars"><i style="height:48%"></i><i style="height:70%"></i><i style="height:58%"></i><i style="height:84%"></i><i style="height:64%"></i><i style="height:92%"></i><i style="height:76%"></i></div>
+    <div class="mini-footer"><span>Materials</span><b>56%</b><span>Labor</span><b>22%</b><span>Other</span><b>22%</b></div>
+  </div>
+</section>
+
+<main class="dashboard" id="estimate">
+<section class="card estimate-card">
+  <div class="section-heading"><div><span class="section-kicker">01 / PROJECT</span><h2>Create a new estimate</h2><p>Enter the basic project information and generate a planning range.</p></div><span class="step-pill">AI Ready</span></div>
+  <div class="form-grid">
+    <label>Country<select id="country"></select></label>
+    <label>City / Location<input id="city" placeholder="e.g. Faisalabad"></label>
+    <label>Building type<select id="type"><option>House</option><option>Commercial</option><option>Industrial</option><option>Government</option><option>Other</option></select></label>
+    <label>Construction quality<select id="quality"><option value="basic">Basic</option><option value="standard" selected>Standard</option><option value="premium">Premium</option></select></label>
+    <label>Area<input id="area" type="number" value="1000" min="1"></label>
+    <label>Unit<select id="unit"><option value="sqft">sq ft</option><option value="sqm">m²</option><option value="sqyd">sq yd</option></select></label>
+    <label>Floors<input id="floors" type="number" value="1" min="1"></label>
+    <label>Currency<select id="currency"></select></label>
+  </div>
+  <label class="check"><input id="gov" type="checkbox"><span><b>Government Project mode</b><small>Use/verify official SOR, CSR or SSR schedules when available. Never invent official rates.</small></span></label>
+  <div class="plan-upload"><div class="upload-icon">⌁</div><div><h3>Estimate from your drawing / plan</h3><p>Upload a floor-plan image or drawing for AI-assisted review. Unreadable dimensions remain assumptions.</p><input id="file" type="file" accept="image/*,.pdf"><div id="preview"></div></div><button id="analyze" class="secondary">Analyze plan</button></div>
+  <button class="primary generate-btn" id="estimate">Generate Estimate →</button><p class="note" id="note"></p>
+</section>
+
+<section class="results-stack">
+  <div class="card result-card">
+    <div class="result-head"><div><span class="section-kicker">02 / RESULTS</span><h2>Rough cost range</h2></div><span class="confidence">Planning estimate</span></div>
+    <div class="totals"><div><span>Low</span><strong id="low">—</strong></div><div class="featured"><span>Average</span><strong id="avg">—</strong></div><div><span>High</span><strong id="high">—</strong></div></div>
+    <p id="meta" class="note">Generate an estimate to see the project summary.</p>
+    <div class="result-actions"><button id="save">Save History</button><button id="print">PDF / Print</button></div>
+  </div>
+  <div class="card analytics-card" id="rates-card">
+    <div class="section-heading compact"><div><span class="section-kicker">03 / DATA</span><h2>Project analytics</h2></div></div>
+    <div class="tabs"><button data-tab="break">Breakdown</button><button data-tab="rates">Live Rates</button><button data-tab="history">History</button></div>
+    <div id="break" class="tab active"></div><div id="rates" class="tab"></div><div id="history" class="tab"></div>
+  </div>
+</section>
+
+<section class="lower-grid">
+  <div class="card assistant-card" id="assistant"><div class="assistant-top"><div class="ai-avatar">✦</div><div><span class="section-kicker">04 / AI</span><h2>AI Estimate Assistant</h2><p>Ask about assumptions, quantities, materials or your current estimate.</p></div></div><textarea id="q" placeholder="Ask something like: What can reduce my construction cost?"></textarea><button id="ask" class="primary">Ask AI →</button><div id="answer" class="answer">AI is ready.</div></div>
+  <div class="card pro-card"><div class="pro-glow"></div><span class="section-kicker">05 / PRO</span><h2>Go Pro. Build with fewer limits.</h2><p>Remove ads and unlock the premium workflow as your payment provider is connected.</p><ul><li>Ad-free experience</li><li>Advanced AI assistance</li><li>Detailed reports & PDF</li><li>More project history</li></ul><button id="upgradeBtn" class="pro-cta">Upgrade to Pro →</button><div id="adSlot" class="ad-slot">Advertisement — Free plan</div></div>
+</section>
+</main>
+
+<footer><div><b>My Estimateer</b><small>Smart Construction Estimates, Anywhere in the World.</small></div><div class="footer-links"><a href="privacy-policy.html">Privacy</a><a href="terms-and-conditions.html">Terms</a><a href="refund-policy.html">Refund</a><a href="ownership-statement.html">Ownership</a></div><p>© 2026 My Estimateer · Created by <b>SI CREATERS</b> · Preliminary estimates must be verified by qualified local professionals.</p></footer>
+</div>
+<script src="app.js"></script>
+</body></html>
